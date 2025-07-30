@@ -10,7 +10,6 @@ import com.mzdev.notesapp.feature_note.domain.use_cases.DeleteNoteUseCase
 import com.mzdev.notesapp.feature_note.domain.use_cases.GetNoteUseCase
 import com.mzdev.notesapp.feature_note.domain.use_cases.GetNotesUseCase
 import com.mzdev.notesapp.feature_note.domain.use_cases.NoteUseCases
-import com.mzdev.notesapp.feature_note.presentation.notes.NotesEvent
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
