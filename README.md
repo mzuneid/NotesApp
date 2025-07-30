@@ -38,9 +38,10 @@ Easily create, edit, delete, and sort notes with a beautiful UI and smooth UX.
 
 ## 📸 Screenshots
 
-| Home Screen | Add/Edit Note | Sort Options |
-|-------------|---------------|--------------|
-| ![Home](https://your-image-link) | ![Add/Edit](https://your-image-link) | ![Sort](https://your-image-link) |
+| Home Screen |
+|-------------|
+| ![Home] (https://github.com/mzuneid/NotesApp/blob/6627ac67f584f43393075fe52f70278f8331e654/Screenshot%202025-07-30%20at%2015.37.22.png)
+![Home-Night] (https://github.com/mzuneid/NotesApp/blob/6627ac67f584f43393075fe52f70278f8331e654/Screenshot%202025-07-30%20at%2015.36.23.png) |
 
 
 
