@@ -25,24 +25,25 @@ fun TransparentHintTextField(
     textStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
     testTag: String = "",
-    onFocusChange: (FocusState) -> Unit
+    onFocusChange: (FocusState) -> Unit,
 ) {
     Box(
-        modifier = modifier
+        modifier = modifier,
     ) {
         BasicTextField(
             value = text,
             onValueChange = onValueChange,
             singleLine = singleLine,
             textStyle = textStyle,
-            modifier = Modifier
-                .testTag(testTag)
-                .fillMaxWidth()
-                .onFocusChanged {
-                    onFocusChange(it)
-                }
+            modifier =
+                Modifier
+                    .testTag(testTag)
+                    .fillMaxWidth()
+                    .onFocusChanged {
+                        onFocusChange(it)
+                    },
         )
-        if(isHintVisible) {
+        if (isHintVisible) {
             Text(text = hint, style = textStyle, color = Color.DarkGray)
         }
     }
@@ -51,13 +52,13 @@ fun TransparentHintTextField(
 @Preview(showBackground = true)
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewTransparentHintTextField(){
+fun PreviewTransparentHintTextField() {
     NotesAppTheme {
-         TransparentHintTextField(
-             text = "Text",
-             hint = "hint",
-             onValueChange = {},
-             onFocusChange = {}
-         )
+        TransparentHintTextField(
+            text = "Text",
+            hint = "hint",
+            onValueChange = {},
+            onFocusChange = {},
+        )
     }
 }

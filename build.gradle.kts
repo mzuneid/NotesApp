@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.kotlinAndroidKsp) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.ktlint) apply false
 }

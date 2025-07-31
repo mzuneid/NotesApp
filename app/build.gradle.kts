@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlinAndroidKsp)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -26,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -40,6 +41,28 @@ android {
     buildFeatures {
         compose = true
     }
+
+    lint {
+        abortOnError = true
+        checkAllWarnings = true
+        warningsAsErrors = true
+    }
+    ktlint {
+        version.set("1.2.1") // matches the latest stable ktlint core version
+        android.set(true) // enables Android-specific formatting
+        verbose.set(true)
+        outputColorName.set("RED") // color in terminal
+        ignoreFailures.set(false)
+        reporters {
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+            reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        }
+        filter {
+            exclude("**/generated/**")
+            include("**/kotlin/**", "**/*.kt", "**/*.kts")
+        }
+    }
+
 }
 
 dependencies {

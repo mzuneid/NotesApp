@@ -47,26 +47,27 @@ import kotlinx.coroutines.launch
 fun AddEditNoteScreen(
     navController: NavController,
     noteColor: Int,
-    viewModel: AddEditNoteViewModel = hiltViewModel()
+    viewModel: AddEditNoteViewModel = hiltViewModel(),
 ) {
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
 
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val noteBackgroundAnimatable = remember {
-        Animatable(
-            Color(if (noteColor != -1) noteColor else viewModel.noteColor.value)
-        )
-    }
+    val noteBackgroundAnimatable =
+        remember {
+            Animatable(
+                Color(if (noteColor != -1) noteColor else viewModel.noteColor.value),
+            )
+        }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
+            when (event) {
                 is UiEvent.ShowSnackbar -> {
                     snackbarHostState.showSnackbar(
-                        message = event.message
+                        message = event.message,
                     )
                 }
                 is UiEvent.SaveNote -> {
@@ -82,52 +83,58 @@ fun AddEditNoteScreen(
                 onClick = {
                     viewModel.onEvent(AddEditNoteEvent.SaveNote)
                 },
-                contentColor = MaterialTheme.colorScheme.primary
+                contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(imageVector = Icons.Default.Save, contentDescription = "Save")
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
-    Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(noteBackgroundAnimatable.value)
-                .padding(paddingValues)
-                .padding(16.dp)
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(noteBackgroundAnimatable.value)
+                    .padding(paddingValues)
+                    .padding(16.dp),
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Note.noteColors.forEach { color ->
                     val colorInt = color.toArgb()
                     Box(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .shadow(15.dp, CircleShape)
-                            .clip(CircleShape)
-                            .background(color)
-                            .border(
-                                width = 3.dp,
-                                color = if (viewModel.noteColor.value == colorInt) {
-                                    Color.Black
-                                } else Color.Transparent,
-                                shape = CircleShape
-                            )
-                            .clickable {
-                                scope.launch {
-                                    noteBackgroundAnimatable.animateTo(
-                                        targetValue = Color(colorInt),
-                                        animationSpec = tween(
-                                            durationMillis = 500
+                        modifier =
+                            Modifier
+                                .size(50.dp)
+                                .shadow(15.dp, CircleShape)
+                                .clip(CircleShape)
+                                .background(color)
+                                .border(
+                                    width = 3.dp,
+                                    color =
+                                        if (viewModel.noteColor.value == colorInt) {
+                                            Color.Black
+                                        } else {
+                                            Color.Transparent
+                                        },
+                                    shape = CircleShape,
+                                ).clickable {
+                                    scope.launch {
+                                        noteBackgroundAnimatable.animateTo(
+                                            targetValue = Color(colorInt),
+                                            animationSpec =
+                                                tween(
+                                                    durationMillis = 500,
+                                                ),
                                         )
-                                    )
-                                }
-                                viewModel.onEvent(AddEditNoteEvent.ChangeColor(colorInt))
-                            }
+                                    }
+                                    viewModel.onEvent(AddEditNoteEvent.ChangeColor(colorInt))
+                                },
                     )
                 }
             }
@@ -144,7 +151,7 @@ fun AddEditNoteScreen(
                 isHintVisible = titleState.isHintVisible,
                 singleLine = true,
                 textStyle = MaterialTheme.typography.headlineSmall,
-                testTag = TestTags.TITLE_TEXT_FIELD
+                testTag = TestTags.TITLE_TEXT_FIELD,
             )
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
@@ -159,7 +166,7 @@ fun AddEditNoteScreen(
                 isHintVisible = contentState.isHintVisible,
                 textStyle = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.fillMaxHeight(),
-                testTag = TestTags.CONTENT_TEXT_FIELD
+                testTag = TestTags.CONTENT_TEXT_FIELD,
             )
         }
     }

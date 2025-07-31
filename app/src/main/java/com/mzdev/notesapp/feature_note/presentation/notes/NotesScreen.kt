@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun NotesScreen(
     navController: NavController,
-    viewModel: NotesViewModel = hiltViewModel()
+    viewModel: NotesViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
     val snackbarHostState = remember { SnackbarHostState() }
@@ -58,7 +58,7 @@ fun NotesScreen(
                 onClick = {
                     navController.navigate(Screen.AddEditNoteScreen.route)
                 },
-                contentColor = MaterialTheme.colorScheme.primary
+                contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
@@ -66,19 +66,20 @@ fun NotesScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "Your note",
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.headlineMedium,
                 )
                 IconButton(
                     onClick = {
@@ -87,7 +88,7 @@ fun NotesScreen(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.Sort,
-                        contentDescription = "Sort"
+                        contentDescription = "Sort",
                     )
                 }
             }
@@ -95,17 +96,18 @@ fun NotesScreen(
             AnimatedVisibility(
                 visible = state.isOrderSectionVisible,
                 enter = fadeIn() + slideInVertically(),
-                exit = fadeOut() + slideOutVertically()
+                exit = fadeOut() + slideOutVertically(),
             ) {
                 OrderSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp)
-                        .testTag(TestTags.ORDER_SECTION),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                            .testTag(TestTags.ORDER_SECTION),
                     noteOrder = state.noteOrder,
                     onOrderChange = {
                         viewModel.onEvent(NotesEvent.Order(it))
-                    }
+                    },
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -113,26 +115,28 @@ fun NotesScreen(
                 items(state.notes) { note ->
                     NoteItem(
                         note = note,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                navController.navigate(
-                                    Screen.AddEditNoteScreen.route +
-                                            "?noteId=${note.id}&noteColor=${note.color}"
-                                )
-                            },
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    navController.navigate(
+                                        Screen.AddEditNoteScreen.route +
+                                            "?noteId=${note.id}&noteColor=${note.color}",
+                                    )
+                                },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
-                                val result = snackbarHostState.showSnackbar(
-                                    message = "Note deleted",
-                                    actionLabel = "Undo"
-                                )
-                                if(result == SnackbarResult.ActionPerformed) {
+                                val result =
+                                    snackbarHostState.showSnackbar(
+                                        message = "Note deleted",
+                                        actionLabel = "Undo",
+                                    )
+                                if (result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
                             }
-                        }
+                        },
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
@@ -140,4 +144,3 @@ fun NotesScreen(
         }
     }
 }
-

@@ -19,32 +19,27 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun provideNoteDatabase(app: Application): NoteDatabase =
+        Room
+            .databaseBuilder(
+                app,
+                NoteDatabase::class.java,
+                NoteDatabase.DATABASE_NAME,
+            ).build()
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(app: Application): NoteDatabase {
-        return Room.databaseBuilder(
-            app,
-            NoteDatabase::class.java,
-            NoteDatabase.DATABASE_NAME
-        ).build()
-    }
+    fun provideNoteRepository(db: NoteDatabase): NoteRepository = NoteRepositoryImpl(db.noteDao)
 
     @Provides
     @Singleton
-    fun provideNoteRepository(db: NoteDatabase): NoteRepository {
-        return NoteRepositoryImpl(db.noteDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
-        return NoteUseCases(
+    fun provideNoteUseCases(repository: NoteRepository): NoteUseCases =
+        NoteUseCases(
             getNotes = GetNotesUseCase(repository),
             deleteNote = DeleteNoteUseCase(repository),
             addNote = AddNoteUseCase(repository),
-            getNote = GetNoteUseCase(repository)
+            getNote = GetNoteUseCase(repository),
         )
-    }
-
 }

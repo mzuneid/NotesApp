@@ -34,49 +34,53 @@ fun NoteItem(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 10.dp,
     cutCornerSize: Dp = 30.dp,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .testTag(TestTags.NOTE_ITEM)
+        modifier =
+            modifier
+                .testTag(TestTags.NOTE_ITEM),
     ) {
         Canvas(modifier = Modifier.matchParentSize()) {
-            val clipPath = Path().apply {
-                lineTo(size.width - cutCornerSize.toPx(), 0f)
-                lineTo(size.width, cutCornerSize.toPx())
-                lineTo(size.width, size.height)
-                lineTo(0f, size.height)
-                close()
-            }
+            val clipPath =
+                Path().apply {
+                    lineTo(size.width - cutCornerSize.toPx(), 0f)
+                    lineTo(size.width, cutCornerSize.toPx())
+                    lineTo(size.width, size.height)
+                    lineTo(0f, size.height)
+                    close()
+                }
 
             clipPath(clipPath) {
                 drawRoundRect(
                     color = Color(note.color),
                     size = size,
-                    cornerRadius = CornerRadius(cornerRadius.toPx())
+                    cornerRadius = CornerRadius(cornerRadius.toPx()),
                 )
                 drawRoundRect(
-                    color = Color(
-                        ColorUtils.blendARGB(note.color, 0x000000, 0.2f)
-                    ),
+                    color =
+                        Color(
+                            ColorUtils.blendARGB(note.color, 0x000000, 0.2f),
+                        ),
                     topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
                     size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
-                    cornerRadius = CornerRadius(cornerRadius.toPx())
+                    cornerRadius = CornerRadius(cornerRadius.toPx()),
                 )
             }
         }
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .padding(end = 32.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .padding(end = 32.dp),
         ) {
             Text(
                 text = note.title,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -84,17 +88,17 @@ fun NoteItem(
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 10,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
         IconButton(
             onClick = onDeleteClick,
-            modifier = Modifier.align(Alignment.BottomEnd)
+            modifier = Modifier.align(Alignment.BottomEnd),
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "Delete note",
-                tint = MaterialTheme.colorScheme.onSurface
+                tint = MaterialTheme.colorScheme.onSurface,
             )
         }
     }
@@ -103,11 +107,10 @@ fun NoteItem(
 @Preview(showBackground = true)
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewNoteItem(){
+fun PreviewNoteItem() {
     NotesAppTheme {
         NoteItem(
-            note = Note("Note example", "Content Example", 1233432L, 1)
+            note = Note("Note example", "Content Example", 1233432L, 1),
         ) { }
     }
-
 }
