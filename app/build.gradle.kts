@@ -19,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.mzdev.notesapp.HiltTestRunner"
     }
 
     buildTypes {
@@ -43,6 +43,7 @@ android {
     }
 
     lint {
+        lintConfig = file("lint.xml")
         abortOnError = true
         checkAllWarnings = true
         warningsAsErrors = true
@@ -77,7 +78,13 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material.icons)
     testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.arch.core.testing)
+    testImplementation(libs.junit.jupiter)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.arch.core.testing)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
