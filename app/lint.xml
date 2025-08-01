@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NewApi" severity="fatal" />
+    <issue id="ContentDescription" severity="fatal" />
+    <issue id="all" severity="warning" />
+</lint>
