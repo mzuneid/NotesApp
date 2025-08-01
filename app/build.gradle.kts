@@ -66,6 +66,13 @@ android {
 
 }
 
+tasks.withType<Test> {
+    testLogging {
+        events("passed", "skipped", "failed")
+        showStandardStreams = true
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -77,20 +84,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.material.icons)
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.arch.core.testing)
-    testImplementation(libs.junit.jupiter)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.arch.core.testing)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.hilt.android.testing)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
     implementation(libs.navigation.compose)
     implementation(libs.spalsh)
     implementation(libs.hilt.android)
@@ -107,4 +100,20 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.arch.core.testing)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.arch.core.testing)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
