@@ -42,12 +42,12 @@ jobs:
               uses: reactivecircus/android-emulator-runner@v2
               with:
                   api-level: 34
-                  target: google_apis
+                  target: default
                   arch: x86_64
-                  profile: pixel_6
+                  profile: Nexus 6
                   script: ./gradlew connectedDebugAndroidTest
                   disable-animations: true
-                  emulator-options: "-no-window -no-audio -no-boot-anim -gpu swiftshader_indirect"
+                  emulator-options: "-no-window -no-audio -no-boot-anim"
 
             - name: 📤 Upload Instrumentation Test Report (if failed)
               if: failure()
