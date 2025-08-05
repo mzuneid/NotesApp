@@ -1,4 +1,4 @@
-name: Android Unit & Instrumented Tests
+name: Android Tests
 
 on:
     push:
@@ -7,44 +7,51 @@ on:
         branches: [main]
 
 jobs:
-    tests:
-        name: Run Unit & Instrumented Tests
+    test:
+        name: Unit & UI Tests
         runs-on: ubuntu-latest
+        timeout-minutes: 30
 
         steps:
-            - name: Checkout source code
+            - name: 🛒 Checkout project
               uses: actions/checkout@v4
 
-            - name: Set up JDK 17
+            - name: ☕ Setup JDK 17
               uses: actions/setup-java@v4
               with:
                   distribution: temurin
                   java-version: 17
 
-            - name: Cache Gradle dependencies
-              uses: actions/cache@v4
+            - name: 🔧 Set Gradle permissions
+              run: chmod +x ./gradlew
+
+            - name: ⚙️ Cache Gradle
+              uses: actions/cache@v3
               with:
                   path: |
                       ~/.gradle/caches
                       ~/.gradle/wrapper
-                  key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+                  key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
                   restore-keys: |
-                      gradle-${{ runner.os }}-
+                      ${{ runner.os }}-gradle-
 
-            - name: Grant execute permission to Gradle
-              run: chmod +x ./gradlew
+            - name: 🧪 Run Unit Tests
+              run: ./gradlew testDebugUnitTest
 
-            - name: Run Unit Tests
-              run: ./gradlew testDebug --stacktrace
-
-            - name: Build Debug APK and Test APK
-              run: ./gradlew assembleDebug assembleAndroidTest --stacktrace
-
-            - name: Run Instrumented Tests on Emulator
+            - name: 📱 Run Instrumented UI Tests
               uses: reactivecircus/android-emulator-runner@v2
               with:
-                  api-level: 36
+                  api-level: 34
+                  target: default
                   arch: x86_64
-                  target: google_apis
-                  profile: pixel
-                  script: ./gradlew connectedDebugAndroidTest --stacktrace
+                  profile: Nexus 6
+                  script: ./gradlew connectedDebugAndroidTest
+                  disable-animations: true
+                  emulator-options: "-no-window -no-audio -no-boot-anim"
+
+            - name: 📤 Upload Instrumentation Test Report (if failed)
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: instrumentation-test-report
+                  path: app/build/reports/androidTests/connected/
