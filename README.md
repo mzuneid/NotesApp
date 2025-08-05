@@ -1,40 +1,65 @@
 # 📝 NotesApp
 
-A clean and modern **Notes App** built with 
-**Jetpack Compose**, 
-**MVVM**,
-**Clean Architecture**.
-**Room Database**
+# 📝 NotesApp
 
-Easily create, edit, delete, and sort notes with a beautiful UI and smooth UX.
+A modern and clean note-taking Android app built using 
+**Jetpack Compose**,
+**MVVM**,
+**Clean Architecture**,
+and **Hilt DI**. 
+It allows users to create, edit, delete, and organize notes with custom colors.
 
 
 ---
 
 ## 🚀 Features
 
-- ✅ Add, edit, and delete notes
-- 🎨 Pick a custom color for each note
-- 🗃️ Sort notes by date, title, or color
-- 🧠 Undo delete with Snackbar action
-- 💡 Modern UI with Material 3 and Jetpack Compose
-- 🧱 Clean Architecture + MVVM + Hilt
+- ✅ Add, Edit, Delete Notes  
+- 🎨 Choose random background colors  
+- 🔍 Sort notes by **Title**, **Date**, or **Color**
+- 📥 Undo deleted notes  
+- 🧱 Built with **Clean Architecture** (data, domain, presentation layers)
+- 💉 Dependency Injection with **Hilt**
+- 🧪 Unit & UI Testing (JUnit5, MockK, Espresso, Compose UI Testing)
+- 🧪 Integrated with **GitHub Actions CI**
 
 ---
 
-## 🛠️ Tech Stack
+## 🧑‍💻 Tech Stack
 
-| Layer           | Tech Used                                         |
-|----------------|--------------------------------------------------|
-| UI             | Jetpack Compose, Material3                       |
-| Architecture   | MVVM, Clean Architecture                         |
-| DI             | Hilt (Dagger)                                    |
-| State Handling | ViewModel, `remember`, `mutableStateOf`          |
-| Persistence    | Room Database                                    |
-| Navigation     | Jetpack Navigation Compose                       |
-| Animation      | Compose Animation APIs                           |
+| Layer         | Tools Used                              |
+|---------------|------------------------------------------|
+| UI            | Jetpack Compose, Navigation, Material3   |
+| Architecture  | MVVM + Clean Architecture                |
+| Dependency Injection | Hilt                               |
+| DB            | Room                                     |
+| Language      | Kotlin                                   |
+| Testing       | JUnit5, MockK, Compose Testing, Espresso |
+| CI/CD         | GitHub Actions                           |
 
 ---
+
+## 🧪 Run Tests
+
+### ✅ Unit Tests & Instrumented UI Tests
+
+```bash
+./gradlew testDebugUnitTest
+
+./gradlew connectedDebugAndroidTest
+
+Ensure an emulator is running or use reactivecircus/android-emulator-runner in CI.
+```
+🔧 Architecture Overview
+
+com.mzdev.notesapp
+├── di                # Hilt modules
+├── feature_note      # All note-related features
+│   ├── data
+│   ├── domain
+│   └── presentation
+├── ui                # Themes and shared UI
+└── utils             # Constants, tags, helpers
 
 
 
