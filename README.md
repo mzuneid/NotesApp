@@ -1,4 +1,3 @@
-# 📝 NotesApp
 
 # 📝 NotesApp
 
@@ -53,13 +52,14 @@ Ensure an emulator is running or use reactivecircus/android-emulator-runner in C
 🔧 Architecture Overview
 
 com.mzdev.notesapp
-├── di                # Hilt modules
-├── feature_note      # All note-related features
-│   ├── data
-│   ├── domain
-│   └── presentation
-├── ui                # Themes and shared UI
-└── utils             # Constants, tags, helpers
+├── di               # Dependency Injection modules using Hilt
+├── feature_note     # Note-related features
+│   ├── data         # Data layer (repositories, data sources)
+│   ├── domain       # Business logic, use cases, models
+│   └── presentation # UI layer (ViewModels, Compose screens)
+├── ui               # Shared UI components and theming
+└── utils            # Constants, tags, and utility/helper classes
+
 
 
 
