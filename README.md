@@ -49,16 +49,6 @@ It allows users to create, edit, delete, and organize notes with custom colors.
 
 Ensure an emulator is running or use reactivecircus/android-emulator-runner in CI.
 ```
-🔧 Architecture Overview
-
-com.mzdev.notesapp
-├── di               # Dependency Injection modules using Hilt
-├── feature_note     # Note-related features
-│   ├── data         # Data layer (repositories, data sources)
-│   ├── domain       # Business logic, use cases, models
-│   └── presentation # UI layer (ViewModels, Compose screens)
-├── ui               # Shared UI components and theming
-└── utils            # Constants, tags, and utility/helper classes
 
 
 
